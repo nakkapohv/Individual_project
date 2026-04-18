@@ -1,33 +1,30 @@
 @echo off
-echo ===============================
-echo Установка и запуск проекта
-echo ===============================
+echo ====================================================
+echo Installing dependencies for Hangman Game...
+echo ====================================================
 
-:: Проверка Python
-python --version >nul 2>&1
-IF %ERRORLEVEL% NEQ 0 (
-echo Python не найден. Установи Python и добавь в PATH.
-pause
-exit /b
-)
-
-:: Создание виртуального окружения
-IF NOT EXIST venv (
-echo Создание виртуального окружения...
-python -m venv venv
-)
-
-:: Активация
-call venv\Scripts\activate
-
-:: Обновление pip
-python -m pip install --upgrade pip
-
-:: Установка зависимостей
+:: Проверка и установка библиотек
 pip install -r requirements.txt
 
-:: Запуск игры (замени main.py если файл называется иначе)
-echo Запуск игры...
+if %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo [ERROR] Failed to install dependencies. Check if Python and Pip are installed.
+    pause
+    exit /b
+)
+
+echo.
+echo ====================================================
+echo Starting the game...
+echo ====================================================
+
+:: Запуск игры (убедитесь, что ваш файл называется main.py)
 python main.py
 
-pause
+if %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo [ERROR] The game crashed. See the error message above.
+    pause
+)
+
+exit
