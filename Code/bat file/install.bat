@@ -1,14 +1,20 @@
 @echo off
+setlocal
 echo ====================================================
-echo Installing dependencies for Hangman Game...
+echo Switching to Pygame-ce (Community Edition)...
 echo ====================================================
 
-:: Проверка и установка библиотек
+:: Удаляем старый pygame, если он был, чтобы избежать конфликтов
+echo Removing old pygame if exists...
+pip uninstall pygame -y
+
+:: Установка зависимостей из requirements.txt
+echo Installing pygame-ce...
 pip install -r requirements.txt
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
-    echo [ERROR] Failed to install dependencies. Check if Python and Pip are installed.
+    echo [ERROR] Failed to install pygame-ce.
     pause
     exit /b
 )
@@ -23,8 +29,9 @@ python main.py
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
-    echo [ERROR] The game crashed. See the error message above.
+    echo [ERROR] The game crashed.
     pause
 )
 
+endlocal
 exit
